@@ -3,9 +3,7 @@ FROM docker.io/python:3.9-slim
 EXPOSE 8080
 
 RUN apt update
-RUN apt install -y python3 \
-  python3-wheel \
-  build-essential \
+RUN apt install -y build-essential \
   libxml2-dev \
   libxslt1-dev \
   libffi-dev \
