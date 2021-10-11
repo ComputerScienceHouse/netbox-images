@@ -1,5 +1,7 @@
 FROM image-registry.openshift-image-registry.svc:5000/netbox/netbox-app
 
+USER root
+
 # Adapted from upgrade.sh
 # manage.py needs a key, this is a bogus one!
 RUN NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" \
