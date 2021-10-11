@@ -11,8 +11,10 @@ import os
 #
 # Example: ALLOWED_HOSTS = ['netbox.example.com', 'netbox.internal.local']
 ALLOWED_HOSTS = [
-  os.environ.get("NETBOX_ALLOWED_HOST") or "localhost:8080"
+  "localhost:8080"
 ]
+if os.environ.get("NETBOX_ALLOWED_HOST"):
+  ALLOWED_HOSTS.append(os.environ.get("NETBOX_ALLOWED_HOST"))
 
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
