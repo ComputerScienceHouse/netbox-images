@@ -21,16 +21,12 @@ COPY netbox /opt/netbox
 
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
 COPY gunicorn.py /opt/netbox/gunicorn.py
+COPY migrate.sh /opt/netbox/migrate.sh
 
 WORKDIR /opt/netbox
 
 # Adapted from upgrade.sh
 RUN python3 netbox/manage.py collectstatic --no-input
-# These shouldn't be run by us:
-# RUN python3 netbox/manage.py migrate
-# RUN python3 netbox/manage.py trace_paths --no-input
-# RUN python3 netbox/manage.py remove_stale_contenttypes --no-input
-# RUN python3 netbox/manage.py clearsessions
 
 USER 1069
 
