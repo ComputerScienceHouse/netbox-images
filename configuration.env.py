@@ -24,9 +24,9 @@ DATABASE = {
   # PostgreSQL password
   'PASSWORD': os.environ.get("NETBOX_DB_PASS") or 'netbox',
   # DB Server
-  'HOST': os.environ.get("NETBOX_DB_HOST") or '',
+  'HOST': os.environ.get("POSTGRES_SERVICE_HOST") or '',
   # Database port (leave blank for default)
-  'PORT': os.environ.get("NETBOX_DB_PORT") or '',
+  'PORT': os.environ.get("POSTGRES_SERVICE_PORT") or '',
   # Max database connection age
   'CONN_MAX_AGE': 300,
 }
@@ -36,9 +36,9 @@ DATABASE = {
 # to use two separate database IDs.
 REDIS = {
   'tasks': {
-    'HOST': os.environ.get("NETBOX_REDIS_HOST") or 'localhost',
-    'PORT': int(os.environ.get("NETOBX_REDIS_PORT")) if \
-      os.environ.get("NETBOX_REDIS_PORT") else 6379,
+    'HOST': os.environ.get("REDIS_SERVICE_HOST") or 'localhost',
+    'PORT': int(os.environ.get("REDIS_SERVICE_PORT")) if \
+      os.environ.get("REDIS_SERVICE_PORT") else 6379,
     # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
     # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
     # 'SENTINEL_SERVICE': 'netbox',
@@ -50,9 +50,9 @@ REDIS = {
     # 'INSECURE_SKIP_TLS_VERIFY': False,
     },
   'caching': {
-    'HOST': os.environ.get("NETBOX_REDIS_HOST") or 'localhost',
-    'PORT': int(os.environ.get("NETOBX_REDIS_PORT")) if \
-      os.environ.get("NETBOX_REDIS_PORT") else 6379,
+    'HOST': os.environ.get("REDIS_SERVICE_HOST") or 'localhost',
+    'PORT': int(os.environ.get("REDIS_SERVICE_PORT")) if \
+      os.environ.get("REDIS_SERVICE_PORT") else 6379,
     # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
     # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
     # 'SENTINEL_SERVICE': 'netbox',
@@ -137,8 +137,8 @@ DEBUG = False
 
 # Email settings
 EMAIL = {
-  'SERVER': os.environ.get("NETBOX_SMTP_HOST") or 'thoth.csh.rit.edu',
-  'PORT': int(os.environ.get("NETBOX_SMTP_PORT")) if os.environ.get("NETBOX_SMTP_PORT") else 465,
+  'SERVER': os.environ.get("SMTP_SERVICE_HOST") or 'thoth.csh.rit.edu',
+  'PORT': int(os.environ.get("SMTP_SERVICE_PORT")) if os.environ.get("SMTP_SERVICE_PORT") else 465,
   'USERNAME': os.environ.get("NETBOX_SMTP_USER") or 'netbox',
   'PASSWORD': os.environ.get("NETBOX_SMTP_PASS") or '',
   'USE_SSL': True,
