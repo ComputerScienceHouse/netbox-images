@@ -1,5 +1,5 @@
 # The IP address (typically localhost) and port that the Netbox WSGI process should listen on
-bind = '127.0.0.1:8080'
+bind = '0.0.0.0:8080'
 
 # Number of gunicorn workers to spawn. This should typically be 2n+1, where
 # n is the number of CPU cores present.
