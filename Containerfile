@@ -9,15 +9,19 @@ RUN apt install -y build-essential \
   libffi-dev \
   libpq-dev \
   libssl-dev \
-  zlib1g-dev
+  zlib1g-dev \
+  libldap2-dev \
+  libsasl2-dev \
+  libssl-dev
 
 COPY netbox/requirements.txt /opt/netbox/requirements.txt
-RUN pip install django-storages
+RUN pip install django-storages django-auth-ldap srvlookup
 RUN pip install -r /opt/netbox/requirements.txt
 
 COPY netbox /opt/netbox
 
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
+COPY ldap_config.env.py /opt/netbox/netbox/netbox/ldap_config.py
 COPY gunicorn.py /opt/netbox/gunicorn.py
 COPY migrate.sh /opt/netbox/migrate.sh
 

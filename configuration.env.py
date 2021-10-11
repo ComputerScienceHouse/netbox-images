@@ -177,6 +177,12 @@ INTERNAL_IPS = ('127.0.0.1', '::1')
 # Enable custom logging. Please see the Django documentation for detailed guidance on configuring custom logs:
 #   https://docs.djangoproject.com/en/stable/topics/logging/
 LOGGING = {}
+# LOGGING = {
+#   "version": 1,
+#   "disable_existing_loggers": False,
+#   "handlers": {"console": {"class": "logging.StreamHandler"}},
+#   "loggers": {"django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}},
+# }
 
 # Automatically reset the lifetime of a valid session upon each authenticated request. Enables users to remain
 # authenticated to NetBox indefinitely.
@@ -254,8 +260,8 @@ RACK_ELEVATION_DEFAULT_UNIT_HEIGHT = 22
 RACK_ELEVATION_DEFAULT_UNIT_WIDTH = 220
 
 # Remote authentication support
-REMOTE_AUTH_ENABLED = False
-REMOTE_AUTH_BACKEND = 'netbox.authentication.RemoteUserBackend'
+REMOTE_AUTH_ENABLED = True
+REMOTE_AUTH_BACKEND = 'netbox.authentication.LDAPBackend'
 REMOTE_AUTH_HEADER = 'HTTP_REMOTE_USER'
 REMOTE_AUTH_AUTO_CREATE_USER = True
 REMOTE_AUTH_DEFAULT_GROUPS = []
