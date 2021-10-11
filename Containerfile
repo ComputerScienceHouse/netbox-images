@@ -25,9 +25,10 @@ COPY gunicorn.py /opt/netbox/gunicorn.py
 WORKDIR /opt/netbox
 
 # Adapted from upgrade.sh
+RUN python3 netbox/manage.py collectstatic --no-input
+# These shouldn't be run by us:
 # RUN python3 netbox/manage.py migrate
 # RUN python3 netbox/manage.py trace_paths --no-input
-# RUN python3 netbox/manage.py collectstatic --no-input
 # RUN python3 netbox/manage.py remove_stale_contenttypes --no-input
 # RUN python3 netbox/manage.py clearsessions
 
