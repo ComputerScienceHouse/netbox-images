@@ -28,5 +28,5 @@ WORKDIR /opt/netbox
 RUN NETBOX_SECRET_KEY=6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0 \
   python3 netbox/manage.py collectstatic --no-input
 
-FROM docker.io/galenguyer/nginx:latest
-COPY --from=0 /opt/netbox/netbox/static/* /var/www/html/
+FROM docker.io/galenguyer/nginx:1.21.3
+COPY --from=0 /opt/netbox/netbox/static /usr/share/nginx/html
