@@ -5,5 +5,5 @@ OKD Containers for CSH's Netbox instance
 Currently, lots:
 
 - NGINX for static folder
-- LDAP
-- Deploy this bitch
+- ~~LDAP~~
+- ~~Deploy this bitch~~
