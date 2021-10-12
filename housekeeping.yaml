@@ -15,4 +15,24 @@ spec:
             - python3
             - netbox/manage.py
             - housekeeping
+            env:
+              - name: NETBOX_REDIS_PASS
+                valueFrom:
+                  secretKeyRef:
+                    name: redis
+                    key: database-password
+            imagePullPolicy: Always
+            envFrom:
+              - configMapRef:
+                  name: netbox-secrets
+              - secretRef:
+                  name: netbox-secret-key
+              - secretRef:
+                  name: netbox-aws
+              - secretRef:
+                  name: netbox-db-pass
+              - secretRef:
+                  name: netbox-mail
+              - secretRef:
+                  name: netbox-ldap
           restartPolicy: OnFailure
