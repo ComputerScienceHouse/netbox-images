@@ -4,6 +4,8 @@ metadata:
   name: netbox-housekeeping
 spec:
   schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:

@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: netbox-migration
+spec:
+  ttlSecondsAfterFinished: 0
+  template:
+    spec:
+      containers:
+      - name: netbox-migration-runner
+        image: image-registry.openshift-image-registry.svc:5000/netbox/netbox-app:latest
+        command:
+        - sh
+        - migrate.sh
+        env:
+          - name: NETBOX_REDIS_PASS
+            valueFrom:
+              secretKeyRef:
+                name: redis
+                key: database-password
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: netbox-secrets
+          - secretRef:
+              name: netbox-secret-key
+          - secretRef:
+              name: netbox-aws
+          - secretRef:
+              name: netbox-db-pass
+          - secretRef:
+              name: netbox-mail
+          - secretRef:
+              name: netbox-ldap
+      restartPolicy: Never
+  backoffLimit: 2
