@@ -2,8 +2,8 @@ FROM docker.io/python:3.9-slim
 
 EXPOSE 8080
 
-RUN apt update
-RUN apt install -y build-essential \
+RUN apt-get update && \
+  apt-get install -y build-essential \
   libxml2-dev \
   libxslt1-dev \
   libffi-dev \
