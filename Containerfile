@@ -1,4 +1,4 @@
-FROM docker.io/python:3.9-slim
+FROM docker.io/python:3.10-slim
 
 EXPOSE 8080
 
