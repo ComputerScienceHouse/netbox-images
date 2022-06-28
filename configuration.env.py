@@ -83,7 +83,7 @@ SECRET_KEY = os.environ.get("NETBOX_SECRET_KEY")
 # Specify one or more name and email address tuples representing NetBox administrators. These people will be notified of
 # application errors (assuming correct email settings are provided).
 ADMINS = [
-  ('RTP', 'active-rtp@csh.rit.edu')
+  # ('RTP', 'active-rtp@csh.rit.edu')
   # ('John Doe', 'jdoe@example.com'),
 ]
 
