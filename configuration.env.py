@@ -135,7 +135,7 @@ CUSTOM_VALIDATORS = {
 # Set to True to enable server debugging. WARNING: Debugging introduces a substantial performance penalty and may reveal
 # sensitive information about your installation. Only enable debugging while performing testing. Never enable debugging
 # on a production system.
-DEBUG = False
+DEBUG = os.environ.get("NETBOX_DEBUG") == "true"
 
 # Email settings
 EMAIL = {

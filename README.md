@@ -16,7 +16,7 @@ git push
 When the build finishes, we need to run database migrations:
 
 ```
-kubectl create -n netbox migrate.yaml
+kubectl create -n netbox -f migrate.yaml
 ```
 
 I _think_ that's it?
