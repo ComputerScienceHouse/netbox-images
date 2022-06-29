@@ -77,7 +77,10 @@ class IPAGroupType(LDAPGroupType):
       search = group_search.search_with_additional_term_string(filterstr)
       groups = search.execute(ldap_user.connection)
     except (KeyError, IndexError):
+      logger.exception("shit")
       pass
+
+    logger.debug("User's groups: " + str(groups))
 
     return groups
 
