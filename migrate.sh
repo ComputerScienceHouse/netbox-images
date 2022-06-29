@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -ex
 
 # These shouldn't be run automatically by us
 # We package these so they can be run by a human
