@@ -98,7 +98,7 @@ BANNER_TOP = ''
 BANNER_BOTTOM = ''
 
 # Text to include on the login page above the login form. HTML is allowed.
-BANNER_LOGIN = ''
+BANNER_LOGIN = 'Please log in with your CSH username and password'
 
 # Base URL path if accessing NetBox within a directory. For example, if installed at https://example.com/netbox/, set:
 # BASE_PATH = 'netbox/'
@@ -176,13 +176,12 @@ INTERNAL_IPS = ('127.0.0.1', '::1')
 
 # Enable custom logging. Please see the Django documentation for detailed guidance on configuring custom logs:
 #   https://docs.djangoproject.com/en/stable/topics/logging/
-LOGGING = {}
-# LOGGING = {
-#   "version": 1,
-#   "disable_existing_loggers": False,
-#   "handlers": {"console": {"class": "logging.StreamHandler"}},
-#   "loggers": {"django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}},
-# }
+LOGGING = {
+  "version": 1,
+  "disable_existing_loggers": False,
+  "handlers": {"console": {"class": "logging.StreamHandler"}},
+  "loggers": {"django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}},
+} if DEBUG else {}
 
 # Automatically reset the lifetime of a valid session upon each authenticated request. Enables users to remain
 # authenticated to NetBox indefinitely.
@@ -190,7 +189,7 @@ LOGIN_PERSISTENCE = False
 
 # Setting this to True will permit only authenticated users to access any part of NetBox. By default, anonymous users
 # are permitted to access most data in NetBox but not make any changes.
-LOGIN_REQUIRED = False
+LOGIN_REQUIRED = True
 
 # The length of time (in seconds) for which a user will remain logged into the web UI before being prompted to
 # re-authenticate. (Default: 1209600 [14 days])

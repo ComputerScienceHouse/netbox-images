@@ -108,3 +108,12 @@ AUTH_LDAP_USER_ATTR_MAP = {
     "last_name": "sn",
     "email": "mail"
 }
+
+# Mirror LDAP group assignments.
+AUTH_LDAP_MIRROR_GROUPS = True
+
+# For more granular permissions, we can map LDAP groups to Django groups.
+AUTH_LDAP_FIND_GROUP_PERMS = True
+
+# Cache groups for one hour to reduce LDAP traffic
+AUTH_LDAP_CACHE_TIMEOUT = 3600
