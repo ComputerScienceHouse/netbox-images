@@ -3,7 +3,13 @@ OKD Containers for CSH's Netbox instance, now with LDAP!
 
 ## Upgrading
 
-First, pause rollouts to all netbox deployments in OKD.
+First, pause rollouts to all netbox deployments in OKD:
+
+```
+kubectl rollout pause deployment/netbox-app
+kubectl rollout pause deployment/netbox-static
+kubectl rollout pause deployment/netbox-rqworker
+```
 
 Then, try something like:
 ```
@@ -17,6 +23,16 @@ When the build finishes, we need to run database migrations:
 
 ```
 kubectl create -n netbox -f migrate.yaml
+```
+
+Wait for the job to finish and complete.
+
+When it's finished, you can unpause rollouts:
+
+```
+kubectl rollout resume deployment/netbox-app
+kubectl rollout resume deployment/netbox-static
+kubectl rollout resume deployment/netbox-rqworker
 ```
 
 I _think_ that's it?
