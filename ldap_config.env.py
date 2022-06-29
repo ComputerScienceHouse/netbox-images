@@ -2,6 +2,7 @@ import os
 import srvlookup
 import random
 import logging
+import json
 
 import ldap
 from ldap.ldapobject import ReconnectLDAPObject
@@ -58,12 +59,21 @@ AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
 logger = logging.getLogger("django_auth_ldap")
 
 class IPAGroupType(LDAPGroupType):
+  def group_name_from_info(self, group_info):
+    logger.debug("Getting group name from info for " + str(group_info))
+    name = super.group_name_from_info(group_info)
+    logger.debug("Name was: " + str(name))
+    return name
+
   def user_groups(self, ldap_user, group_search):
     """
     Searches for any group that is either the user's primary or contains the
     user as a member.
     """
     logger.debug("Is in groups?")
+    logger.debug("Attributes for this user: " + str(list(ldap_user.attrs.keys())))
+    mb = ldap_user.attrs.get("memberOf", [])
+    logger.debug("memberOf is: " + json.dumps(mb))
 
     groups = []
 
@@ -119,4 +129,4 @@ AUTH_LDAP_MIRROR_GROUPS = True
 AUTH_LDAP_FIND_GROUP_PERMS = True
 
 # Cache groups for one hour to reduce LDAP traffic
-AUTH_LDAP_CACHE_TIMEOUT = 3600
+# AUTH_LDAP_CACHE_TIMEOUT = 3600
