@@ -6,9 +6,9 @@ OKD Containers for CSH's Netbox instance, now with LDAP!
 First, pause rollouts to all netbox deployments in OKD:
 
 ```
-kubectl rollout pause deployment/netbox-app
-kubectl rollout pause deployment/netbox-static
-kubectl rollout pause deployment/netbox-rqworker
+kubectl rollout pause deployment/netbox-app -n netbox
+kubectl rollout pause deployment/netbox-static -n netbox
+kubectl rollout pause deployment/netbox-rqworker -n netbox
 ```
 
 Then, try something like:
@@ -30,9 +30,9 @@ Wait for the job to finish and complete.
 When it's finished, you can unpause rollouts:
 
 ```
-kubectl rollout resume deployment/netbox-app
-kubectl rollout resume deployment/netbox-static
-kubectl rollout resume deployment/netbox-rqworker
+kubectl rollout resume deployment/netbox-app -n netbox
+kubectl rollout resume deployment/netbox-static -n netbox
+kubectl rollout resume deployment/netbox-rqworker -n netbox
 ```
 
 I _think_ that's it?
