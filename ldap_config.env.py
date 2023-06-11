@@ -80,7 +80,8 @@ class IPAGroupType(LDAPGroupType):
     groups = []
 
     try:
-      user_dn = ldap_user.attrs["dn"][0]
+      user_dn = "uid={},cn=users,cn=accounts,dc=csh,dc=rit,dc=edu".format(ldap_user.attrs["uid"][0])
+      # user_dn = ldap_user.attrs["dn"][0]
 
       filterstr = "(member={})".format(
         self.ldap.filter.escape_filter_chars(user_dn)
