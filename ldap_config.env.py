@@ -63,7 +63,7 @@ logger = logging.getLogger("django_auth_ldap")
 class IPAGroupType(LDAPGroupType):
   def group_name_from_info(self, group_info):
     logger.debug("Getting group name from info for " + str(group_info))
-    name = super.group_name_from_info(group_info)
+    name = super().group_name_from_info(group_info)
     logger.debug("Name was: " + str(name))
     return name
 
