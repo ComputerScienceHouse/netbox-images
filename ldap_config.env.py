@@ -56,6 +56,8 @@ AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
   # ,"(objectClass=posixgroup)"
 )
 
+AUTH_LDAP_MIRROR_GROUPS = True
+
 logger = logging.getLogger("django_auth_ldap")
 
 class IPAGroupType(LDAPGroupType):
