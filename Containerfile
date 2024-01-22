@@ -15,8 +15,10 @@ RUN apt-get update && \
   libssl-dev
 
 COPY netbox/requirements.txt /opt/netbox/requirements.txt
+COPY local_requirements.txt /opt/netbox/local_requirements.txt
 RUN pip install django-storages django-auth-ldap srvlookup
 RUN pip install -r /opt/netbox/requirements.txt
+RUN pip install -r /opt/netbox/local_requirements.txt
 
 COPY netbox /opt/netbox
 
