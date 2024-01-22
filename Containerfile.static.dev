@@ -1,4 +1,4 @@
-FROM image-registry.openshift-image-registry.svc:5000/netbox/netbox-app
+FROM image-registry.openshift-image-registry.svc:5000/netbox/netbox-app-dev
 
 FROM docker.io/galenguyer/nginx:1.21.4
 COPY --from=0 /opt/netbox/netbox/static /usr/share/nginx/html/static
