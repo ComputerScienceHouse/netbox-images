@@ -1,1 +1,2 @@
 netbox-topology-views==3.8.1
+netbox-plugin-dns==0.22.1
