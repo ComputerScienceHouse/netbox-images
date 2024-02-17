@@ -2,8 +2,9 @@ from extras.validators import CustomValidator
 
 class DNSValidator(CustomValidator):
     def validate(self, instance):
-        print(instance)
         from netbox_dns.models import Record, RecordTypeChoices
+        from django.contrib import messages
+        messages.info(self.request, instance)
         if instance.type == RecordTypeChoices.AAAA:
             records = Record.objects.filter(name=instance.name, zone=instance.zone, type=RecordTypeChoices.A)
             if records.exists() and records[0].ipam_ip_address.assigned_object_id != instance.ipam_ip_address.assigned_object_id:
@@ -23,7 +24,7 @@ class DNSValidator(CustomValidator):
             if records.exists():
                 self.fail("Record for this name in this zone already exists!", field='name')
         records = Record.objects.filter(name=instance.name, zone=instance.zone, type=instance.type)
-        print(records)
+        messages.info(self.request, records)
         if records.exists():
             self.fail("Record of given type for this name in this zone already exists!", field='name')
 
