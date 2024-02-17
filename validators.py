@@ -25,3 +25,9 @@ class DNSValidator(CustomValidator):
             records = Record.objects.filter(name=instance.name, zone=instance.zone, type__in=[RecordTypeChoices.A, RecordTypeChoices.AAAA])
             if records.exists():
                 self.fail("Record for this name in this zone already exists!", field='name')
+                return
+        records = Record.objects.filter(name=instance.name, zone=instance.zone, type=instance.type)
+        if records.exists():
+            self.fail("Record of given type for this name in this zone already exists!", field='name')
+            return
+
