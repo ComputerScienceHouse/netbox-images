@@ -250,6 +250,9 @@ PLUGINS = [
 PLUGINS_CONFIG = {
     'netbox_topology_views': {
         'allow_coordinates_saving': True,
+    },
+    'netbox_dns': {
+        'feature_ipam_coupling': True,
     }
 }
 
