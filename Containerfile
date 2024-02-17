@@ -22,6 +22,7 @@ RUN pip install -r /opt/netbox/local_requirements.txt
 
 COPY netbox /opt/netbox
 
+COPY validators.py /opt/netbox/netbox/netbox/validators.py
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
 COPY ldap_config.env.py /opt/netbox/netbox/netbox/ldap_config.py
 COPY gunicorn.py /opt/netbox/gunicorn.py

@@ -1,5 +1,5 @@
 import os
-
+from .validators import DNSValidator
 #########################
 #                       #
 #   Required settings   #
@@ -122,6 +122,9 @@ CORS_ORIGIN_REGEX_WHITELIST = [
 # instances of or inherit from CustomValidator.
 # from extras.validators import CustomValidator
 CUSTOM_VALIDATORS = {
+  'netbox_dns.record': (
+    DNSValidator,
+  )
   # 'dcim.site': [
   #     CustomValidator({
   #         'name': {
@@ -310,3 +313,4 @@ TIME_FORMAT = 'g:i a'
 SHORT_TIME_FORMAT = 'H:i:s'
 DATETIME_FORMAT = 'N j, Y g:i a'
 SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
+
