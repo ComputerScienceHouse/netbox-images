@@ -1,8 +1,8 @@
 from extras.validators import CustomValidator
-from netbox_dns.models import Record, RecordTypeChoices
 
 class DNSValidator(CustomValidator):
     def validate(self, instance):
+        from netbox_dns.models import Record, RecordTypeChoices
         if instance.type == RecordTypeChoices.AAAA:
             records = Record.objects.filter(name=instance.name, zone=instance.zone, type=RecordTypeChoices.A)
             if records.exists() and records[0].ipam_ip_address.assigned_object_id != instance.ipam_ip_address.assigned_object_id:

@@ -1,5 +1,4 @@
 import os
-from .validators import DNSValidator
 #########################
 #                       #
 #   Required settings   #
@@ -121,10 +120,11 @@ CORS_ORIGIN_REGEX_WHITELIST = [
 # Specify any custom validators here, as a mapping of model to a list of validators classes. Validators should be
 # instances of or inherit from CustomValidator.
 # from extras.validators import CustomValidator
+from .validators import DNSValidator
 CUSTOM_VALIDATORS = {
   'netbox_dns.record': (
-    DNSValidator,
-  )
+    DNSValidator(),
+  ),
   # 'dcim.site': [
   #     CustomValidator({
   #         'name': {
