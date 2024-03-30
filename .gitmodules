@@ -1,3 +1,4 @@
 [submodule "netbox"]
 	path = netbox
 	url = ../../netbox-community/netbox.git
+	branch = v3.7.4
