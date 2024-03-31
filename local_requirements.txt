@@ -1,1 +1,1 @@
-netbox-topology-views==3.8.1
+netbox-topology-views==3.9b1
