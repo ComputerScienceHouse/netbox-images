@@ -9,14 +9,11 @@ RUN apt-get update && \
   libffi-dev \
   libpq-dev \
   libssl-dev \
-  zlib1g-dev \
-  libldap2-dev \
-  libsasl2-dev \
-  libssl-dev
+  zlib1g-dev
 
 COPY netbox/requirements.txt /opt/netbox/requirements.txt
 COPY local_requirements.txt /opt/netbox/local_requirements.txt
-RUN pip install django-storages django-auth-ldap srvlookup
+RUN pip install django-storages
 RUN pip install -r /opt/netbox/requirements.txt
 RUN pip install -r /opt/netbox/local_requirements.txt
 
@@ -24,7 +21,6 @@ COPY netbox /opt/netbox
 COPY oidc_groups.py /opt/netbox/netbox/oidc_groups.py
 
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
-COPY ldap_config.env.py /opt/netbox/netbox/netbox/ldap_config.py
 COPY gunicorn.py /opt/netbox/gunicorn.py
 COPY migrate.sh /opt/netbox/migrate.sh
 
