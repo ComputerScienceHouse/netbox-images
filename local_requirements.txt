@@ -1,2 +1,2 @@
-netbox-topology-views==3.9b1
+netbox-topology-views==3.9.0
 social-auth-app-django==5.4.0
