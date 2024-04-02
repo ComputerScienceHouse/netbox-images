@@ -98,7 +98,7 @@ BANNER_TOP = ''
 BANNER_BOTTOM = ''
 
 # Text to include on the login page above the login form. HTML is allowed.
-BANNER_LOGIN = 'Please log in with CSH SSO using the "OpenID Connect" link below'
+BANNER_LOGIN = '<script>window.location.replace("/oauth/login/oidc/" + window.location.search);</script>'
 
 # Base URL path if accessing NetBox within a directory. For example, if installed at https://example.com/netbox/, set:
 # BASE_PATH = 'netbox/'
