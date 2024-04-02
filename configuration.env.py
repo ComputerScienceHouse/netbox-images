@@ -98,7 +98,7 @@ BANNER_TOP = ''
 BANNER_BOTTOM = ''
 
 # Text to include on the login page above the login form. HTML is allowed.
-BANNER_LOGIN = 'Please log in with your CSH username and password'
+BANNER_LOGIN = 'Please log in with CSH SSO using the "OpenID Connect" link below'
 
 # Base URL path if accessing NetBox within a directory. For example, if installed at https://example.com/netbox/, set:
 # BASE_PATH = 'netbox/'
@@ -261,8 +261,8 @@ RACK_ELEVATION_DEFAULT_UNIT_WIDTH = 220
 # Remote authentication support
 REMOTE_AUTH_ENABLED = True
 REMOTE_AUTH_BACKEND = 'social_core.backends.open_id_connect.OpenIdConnectAuth'
-LOGIN_REDIRECT_URL = "https://netbox.csh.rit.edu"
-LOGOUT_REDIRECT_URL = "https://netbox.csh.rit.edu"
+# LOGIN_REDIRECT_URL = "https://netbox.csh.rit.edu"
+# LOGOUT_REDIRECT_URL = "https://netbox.csh.rit.edu"
 REMOTE_AUTH_HEADER = 'HTTP_REMOTE_USER'
 REMOTE_AUTH_AUTO_CREATE_USER = True
 REMOTE_AUTH_DEFAULT_GROUPS = []
@@ -290,7 +290,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_user',
     'netbox.authentication.user_default_groups_handler',
     'social_core.pipeline.social_auth.load_extra_data',
-    'oidc_groups.oidc_groups_handler',
+    'oidc_groups.oidc_groups_handler' ,
     'social_core.pipeline.user.user_details',
 )
 
