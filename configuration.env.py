@@ -180,7 +180,7 @@ LOGGING = {
   "version": 1,
   "disable_existing_loggers": False,
   "handlers": {"console": {"class": "logging.StreamHandler"}},
-  "loggers": {"mozilla_django_oidc": {"level": "DEBUG", "handlers": ["console"]}},
+  "loggers": {"social_core": {"level": "DEBUG", "handlers": ["console"]}},
 } if DEBUG else {}
 
 # Automatically reset the lifetime of a valid session upon each authenticated request. Enables users to remain
@@ -261,8 +261,6 @@ RACK_ELEVATION_DEFAULT_UNIT_WIDTH = 220
 # Remote authentication support
 REMOTE_AUTH_ENABLED = True
 REMOTE_AUTH_BACKEND = 'social_core.backends.open_id_connect.OpenIdConnectAuth'
-# LOGIN_REDIRECT_URL = "https://netbox.csh.rit.edu"
-# LOGOUT_REDIRECT_URL = "https://netbox.csh.rit.edu"
 REMOTE_AUTH_HEADER = 'HTTP_REMOTE_USER'
 REMOTE_AUTH_AUTO_CREATE_USER = True
 REMOTE_AUTH_DEFAULT_GROUPS = []
@@ -290,7 +288,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_user',
     'netbox.authentication.user_default_groups_handler',
     'social_core.pipeline.social_auth.load_extra_data',
-    'oidc_groups.oidc_groups_handler' ,
+    'oidc_groups.oidc_groups_handler',
     'social_core.pipeline.user.user_details',
 )
 
