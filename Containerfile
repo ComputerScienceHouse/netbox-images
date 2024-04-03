@@ -20,6 +20,7 @@ RUN pip install -r /opt/netbox/local_requirements.txt
 COPY netbox /opt/netbox
 COPY oidc_groups.py /opt/netbox/netbox/oidc_groups.py
 
+COPY validators.py /opt/netbox/netbox/netbox/validators.py
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
 COPY gunicorn.py /opt/netbox/gunicorn.py
 COPY migrate.sh /opt/netbox/migrate.sh

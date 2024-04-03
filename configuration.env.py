@@ -1,5 +1,4 @@
 import os
-
 #########################
 #                       #
 #   Required settings   #
@@ -121,7 +120,11 @@ CORS_ORIGIN_REGEX_WHITELIST = [
 # Specify any custom validators here, as a mapping of model to a list of validators classes. Validators should be
 # instances of or inherit from CustomValidator.
 # from extras.validators import CustomValidator
+from .validators import DNSValidator
 CUSTOM_VALIDATORS = {
+  'netbox_dns.record': (
+    DNSValidator(),
+  ),
   # 'dcim.site': [
   #     CustomValidator({
   #         'name': {
@@ -239,7 +242,19 @@ NAPALM_ARGS = {}
 PAGINATE_COUNT = 50
 
 # Enable installed plugins. Add the name of each plugin to the list.
-PLUGINS = ["netbox_topology_views"]
+PLUGINS = [
+        "netbox_topology_views",
+        "netbox_dns",
+        ]
+
+PLUGINS_CONFIG = {
+    'netbox_topology_views': {
+        'allow_coordinates_saving': True,
+    },
+    'netbox_dns': {
+        'feature_ipam_coupling': True,
+    }
+}
 
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
 # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
@@ -327,3 +342,4 @@ TIME_FORMAT = 'g:i a'
 SHORT_TIME_FORMAT = 'H:i:s'
 DATETIME_FORMAT = 'N j, Y g:i a'
 SHORT_DATETIME_FORMAT = 'Y-m-d H:i'
+
