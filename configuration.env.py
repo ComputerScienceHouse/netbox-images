@@ -97,7 +97,7 @@ BANNER_TOP = ''
 BANNER_BOTTOM = ''
 
 # Text to include on the login page above the login form. HTML is allowed.
-BANNER_LOGIN = 'Please log in with your CSH username and password'
+BANNER_LOGIN = '<script>window.location.replace("/oauth/login/oidc/" + window.location.search);</script>'
 
 # Base URL path if accessing NetBox within a directory. For example, if installed at https://example.com/netbox/, set:
 # BASE_PATH = 'netbox/'
@@ -183,7 +183,7 @@ LOGGING = {
   "version": 1,
   "disable_existing_loggers": False,
   "handlers": {"console": {"class": "logging.StreamHandler"}},
-  "loggers": {"django_auth_ldap": {"level": "DEBUG", "handlers": ["console"]}},
+  "loggers": {"social_core": {"level": "DEBUG", "handlers": ["console"]}},
 } if DEBUG else {}
 
 # Automatically reset the lifetime of a valid session upon each authenticated request. Enables users to remain
@@ -275,11 +275,37 @@ RACK_ELEVATION_DEFAULT_UNIT_WIDTH = 220
 
 # Remote authentication support
 REMOTE_AUTH_ENABLED = True
-REMOTE_AUTH_BACKEND = 'netbox.authentication.LDAPBackend'
+REMOTE_AUTH_BACKEND = 'social_core.backends.open_id_connect.OpenIdConnectAuth'
 REMOTE_AUTH_HEADER = 'HTTP_REMOTE_USER'
 REMOTE_AUTH_AUTO_CREATE_USER = True
 REMOTE_AUTH_DEFAULT_GROUPS = []
 REMOTE_AUTH_DEFAULT_PERMISSIONS = {}
+SOCIAL_AUTH_OIDC_ENDPOINT = 'https://sso.csh.rit.edu/auth/realms/csh'
+SOCIAL_AUTH_KEY = os.environ.get("OIDC_CLIENT_ID")
+SOCIAL_AUTH_SECRET = os.environ.get("OIDC_CLIENT_SECRET")
+SOCIAL_AUTH_NO_DEFAULT_PROTECTED_USER_FIELDS = True
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = (
+    "id",
+    "pk",
+    "email",
+    "password",
+    "is_active",
+    "is_staff",
+    "is_superuser",
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'netbox.authentication.user_default_groups_handler',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'oidc_groups.oidc_groups_handler',
+    'social_core.pipeline.user.user_details',
+)
 
 # This repository is used to check whether there is a new release of NetBox available. Set to None to disable the
 # version check or use the URL below to check for release in the official NetBox repository.

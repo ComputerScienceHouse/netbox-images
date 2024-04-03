@@ -1,5 +1,5 @@
 # CSH Netbox
-OKD Containers for CSH's Netbox instance, now with LDAP!
+OKD Containers for CSH's Netbox instance, now with CSH SSO!
 
 ## Upgrading
 
