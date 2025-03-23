@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 def oidc_groups_handler(strategy, response, user, *args, **kwargs):
     # mirror groups
     groups = [
-        Group.objects.get_or_create(name=group)[0] for group in response["groups"]
+        Group.objects.get_or_create(name=group)[0].id for group in response["groups"]
     ]
     user.groups.set(groups)
 
