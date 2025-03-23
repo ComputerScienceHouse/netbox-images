@@ -6,8 +6,7 @@ def oidc_groups_handler(strategy, response, user, *args, **kwargs):
     groups = [
         Group.objects.get_or_create(name=group)[0] for group in response["groups"]
     ]
-    for group in groups:
-        group.user_set.add(user)
+    user.groups.set(groups)
 
     # give active rtps superuser and staff
     is_active_rtp = "active_rtp" in response["groups"]
