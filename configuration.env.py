@@ -243,7 +243,7 @@ PAGINATE_COUNT = 50
 
 # Enable installed plugins. Add the name of each plugin to the list.
 PLUGINS = [
-        "netbox_topology_views",
+#        "netbox_topology_views",
         "netbox_dns",
         ]
 
