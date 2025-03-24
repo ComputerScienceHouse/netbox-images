@@ -1,4 +1,4 @@
-from netbox.netbox.users.models import Group
+from users.models import Group
 
 
 def oidc_groups_handler(strategy, response, user, *args, **kwargs):
