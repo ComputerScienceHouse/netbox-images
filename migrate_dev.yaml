@@ -16,8 +16,10 @@ spec:
               secretKeyRef:
                 name: redis
                 key: database-password
-          # - name: NETBOX_DELETE_LEGACY_DATA
-          #   value: "1"
+          - name: NETBOX_DEBUG
+            value: 'true'
+          - name: OIDC_CLIENT_ID
+            value: netbox-dev
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -26,8 +28,6 @@ spec:
               name: netbox-secret-key
           - secretRef:
               name: netbox-aws
-          - secretRef:
-              name: netbox-db-pass
           - secretRef:
               name: netbox-mail
           - secretRef:
