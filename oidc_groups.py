@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group
+from netbox.netbox.users.models import Group
 
 
 def oidc_groups_handler(strategy, response, user, *args, **kwargs):
