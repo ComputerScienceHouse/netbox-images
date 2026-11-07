@@ -215,13 +215,17 @@ MAX_PAGE_SIZE = 1000
 
 # By default uploaded media is stored on the local filesystem. Using Django-storages is also supported. Provide the
 # class path of the storage driver in STORAGE_BACKEND and any configuration options in STORAGE_CONFIG. For example:
-STORAGE_BACKEND = 'storages.backends.s3boto3.S3Boto3Storage'
-STORAGE_CONFIG = {
-  'AWS_ACCESS_KEY_ID': os.environ.get("NETBOX_AWS_ID"),
-  'AWS_SECRET_ACCESS_KEY': os.environ.get("NETBOX_AWS_KEY"),
-  'AWS_STORAGE_BUCKET_NAME': os.environ.get("NETBOX_AWS_BUCKET") or 'netbox',
-  'AWS_S3_REGION_NAME': os.environ.get("NETBOX_AWS_REGION") or 'us-east-1',
-  'AWS_S3_ENDPOINT_URL': os.environ.get("NETBOX_AWS_ENDPOINT") or 'https://s3.csh.rit.edu/'
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "access_key": os.environ.get("NETBOX_AWS_ID"),
+            "secret_key": os.environ.get("NETBOX_AWS_KEY"),
+            "bucket_name": os.environ.get("NETBOX_AWS_BUCKET") or "netbox",
+            "region_name": os.environ.get("NETBOX_AWS_REGION") or "us-east-1",
+            "endpoint_url": os.environ.get("NETBOX_AWS_ENDPOINT") or "https://s3.csh.rit.edu/",
+        },
+    },
 }
 
 # Expose Prometheus monitoring metrics at the HTTP endpoint '/metrics'
