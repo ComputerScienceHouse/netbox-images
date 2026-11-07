@@ -27,10 +27,7 @@ COPY migrate.sh /opt/netbox/migrate.sh
 
 WORKDIR /opt/netbox
 
-RUN pip show mkdocstrings mkdocs mkdocs-material markdown pymdown-extensions \
-  | grep -E '^(Name|Version)'
-
-RUN NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" mkdocs build && \
+RUN NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" zensical build && \
   NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" \
   python3 netbox/manage.py collectstatic --no-input
 

@@ -261,7 +261,7 @@ PLUGINS_CONFIG = {
 }
 
 API_TOKEN_PEPPERS = {
-    0: os.environ.get("NETBOX_PEPPER_TOKEN") # Just a random value to sign api keys with
+    0: os.environ.get("NETBOX_PEPPER_TOKEN", 'A' * 50) # Just a random value to sign api keys with
 }
 
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
