@@ -260,6 +260,10 @@ PLUGINS_CONFIG = {
     }
 }
 
+API_TOKEN_PEPPERS = {
+    0: os.environ.get("NETBOX_PEPPER_TOKEN") # Just a random value to sign api keys with
+}
+
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
 # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
 # PLUGINS_CONFIG = {
