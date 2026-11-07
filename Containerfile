@@ -30,10 +30,10 @@ WORKDIR /opt/netbox
 
 RUN NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" mkdocs build && \
   NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" \
-  python3 netbox/manage.py collectstatic --no-input && \
-  chown -R 1069:0 /opt/netbox
+  python3 netbox/manage.py collectstatic --no-input
 
 RUN chown -R 1069 /opt/netbox
 
+USER 1069
 
 ENTRYPOINT [ "gunicorn", "--config", "/opt/netbox/gunicorn.py", "--pythonpath", "/opt/netbox/netbox", "netbox.wsgi" ]
