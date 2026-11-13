@@ -249,6 +249,7 @@ PAGINATE_COUNT = 50
 PLUGINS = [
         "netbox_topology_views",
         "netbox_dns",
+        "netbox_dhcp",
         ]
 
 PLUGINS_CONFIG = {
