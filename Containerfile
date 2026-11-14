@@ -35,4 +35,4 @@ RUN chown -R 1069:0 /opt/netbox
 
 USER 1069
 
-ENTRYPOINT [ "gunicorn", "--config", "/opt/netbox/gunicorn.py", "--pythonpath", "/opt/netbox/netbox", "netbox.wsgi" ]
+ENTRYPOINT [ "gunicorn", "--config", "/opt/netbox/gunicorn.py", "--pythonpath", "/opt/netbox/netbox", "--access-logfile=-", "netbox.wsgi" ]
