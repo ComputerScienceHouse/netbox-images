@@ -1,0 +1,83 @@
+services:
+  netbox-app:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: netbox-app
+    env_file:
+      - path: .env
+        required: true
+    post_start:
+      - command: "bash -ex migrate.sh"
+        working_dir: /opt/netbox
+    expose:
+      - "8080"
+    volumes:
+      - netbox-static:/opt/netbox/netbox/static
+    depends_on:
+      - netbox-rqworker
+      - redis
+      - postgres
+      - s3
+
+  netbox-rqworker:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: netbox-rqworker
+    env_file:
+      - path: .env
+        required: true
+    depends_on:
+      - redis
+      - postgres
+      - s3
+
+  netbox-static:
+    image: nginx:stable
+    container_name: netbox-static
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx-local.conf:/etc/nginx/conf.d/default.conf:ro
+      - netbox-static:/opt/netbox/netbox/static:ro
+    depends_on:
+      - netbox-app
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: netbox
+      POSTGRES_PASSWORD: veryrealpassworod
+      POSTGERS_DB: netbox
+    # post_start:
+    #   - command: "bash -ex sync-local-db.sh"
+    #     working_dir: /
+    env_file:
+      - path: .env-remote-netbox
+        required: false
+    volumes:
+      - ./sync-local-db.sh:/sync-local-db.sh
+
+    ports:
+      - "5432:5432"
+
+  s3:
+    image: docker.io/chrislusf/seaweedfs
+    container_name: s3
+    ports:
+      - "8333:8333"
+    environment:
+      - AWS_ACCESS_KEY_ID=netbox
+      - AWS_SECRET_ACCESS_KEY=netbox
+      - S3_BUCKET=netbox
+
+volumes:
+  netbox-static:
