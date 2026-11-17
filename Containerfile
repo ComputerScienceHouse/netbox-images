@@ -25,6 +25,9 @@ COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
 COPY gunicorn.py /opt/netbox/gunicorn.py
 COPY migrate.sh /opt/netbox/migrate.sh
 
+COPY scripts /opt/netbox/custom-scripts
+COPY scripts /opt/netbox/netbox/scripts
+
 WORKDIR /opt/netbox
 
 RUN NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" zensical build && \

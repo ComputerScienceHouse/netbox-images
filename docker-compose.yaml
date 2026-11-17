@@ -7,31 +7,72 @@ services:
     env_file:
       - path: .env
         required: true
-    post_start:
-      - command: "bash -ex migrate.sh"
-        working_dir: /opt/netbox
     expose:
       - "8080"
     volumes:
       - netbox-static:/opt/netbox/netbox/static
     depends_on:
-      - netbox-rqworker
-      - redis
-      - postgres
-      - s3
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      s3:
+        condition: service_started
+      netbox-migrate:
+        condition: service_completed_successfully
+    develop:
+      watch:
+        - action: sync
+          path: ./scripts
+          target: /opt/netbox/custom-scripts
+        - action: sync
+          path: ./scripts
+          target: /opt/netbox/netbox/scripts
 
   netbox-rqworker:
     build:
       context: .
       dockerfile: Containerfile
     container_name: netbox-rqworker
+    entrypoint: "python3 /opt/netbox/netbox/manage.py rqworker high default low"
     env_file:
       - path: .env
         required: true
     depends_on:
-      - redis
-      - postgres
-      - s3
+      netbox-app:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      s3:
+        condition: service_started
+      netbox-migrate:
+        condition: service_completed_successfully
+    develop:
+      watch:
+        - action: sync
+          path: ./scripts
+          target: /opt/netbox/custom-scripts
+        - action: sync
+          path: ./scripts
+          target: /opt/netbox/netbox/scripts
+      
+  netbox-migrate:
+    build:
+      context: .
+      dockerfile: Containerfile
+    env_file:
+      - path: .env
+        required: true
+    working_dir: /opt/netbox
+    entrypoint: ["bash", "-ex", "migrate.sh"]
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   netbox-static:
     image: nginx:stable
@@ -49,6 +90,11 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   postgres:
     image: postgres:latest
@@ -56,7 +102,7 @@ services:
     environment:
       POSTGRES_USER: netbox
       POSTGRES_PASSWORD: veryrealpassworod
-      POSTGERS_DB: netbox
+      POSTGRES_DB: netbox
     # post_start:
     #   - command: "bash -ex sync-local-db.sh"
     #     working_dir: /
@@ -65,9 +111,13 @@ services:
         required: false
     volumes:
       - ./sync-local-db.sh:/sync-local-db.sh
-
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netbox -d netbox"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   s3:
     image: docker.io/chrislusf/seaweedfs
