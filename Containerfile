@@ -9,7 +9,11 @@ RUN apt-get update && \
   libffi-dev \
   libpq-dev \
   libssl-dev \
-  zlib1g-dev
+  zlib1g-dev \
+  libldap-common \
+  libldap2-dev \
+  libsasl2-dev \
+  libssl-dev 
 
 COPY netbox/requirements.txt /opt/netbox/requirements.txt
 COPY local_requirements.txt /opt/netbox/local_requirements.txt
@@ -18,7 +22,7 @@ RUN pip install -r /opt/netbox/requirements.txt
 RUN pip install -r /opt/netbox/local_requirements.txt
 
 COPY netbox /opt/netbox
-COPY oidc_groups.py /opt/netbox/netbox/oidc_groups.py
+COPY csh_oidc_handler.py /opt/netbox/netbox/csh_oidc_handler.py
 
 COPY validators.py /opt/netbox/netbox/netbox/validators.py
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py

@@ -1,3 +1,4 @@
 netbox-topology-views==5.0.1
-social-auth-app-django==5.4.0
 netbox-plugin-dns==1.7.3
+
+csh-ldap~=2.5.8
