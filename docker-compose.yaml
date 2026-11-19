@@ -75,7 +75,7 @@ services:
         condition: service_healthy
 
   netbox-static:
-    image: nginx:stable
+    image: docker.io/nginx:stable
     container_name: netbox-static
     ports:
       - "8080:8080"
@@ -86,7 +86,7 @@ services:
       - netbox-app
 
   redis:
-    image: redis:latest
+    image: docker.io/redis:latest
     container_name: redis
     ports:
       - "6379:6379"
@@ -97,7 +97,7 @@ services:
       retries: 10
 
   postgres:
-    image: postgres:latest
+    image: docker.io/postgres:latest
     container_name: postgres
     environment:
       POSTGRES_USER: netbox
