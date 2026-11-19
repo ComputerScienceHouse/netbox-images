@@ -9,7 +9,11 @@ RUN apt-get update && \
   libffi-dev \
   libpq-dev \
   libssl-dev \
-  zlib1g-dev
+  zlib1g-dev \
+  libldap-common \
+  libldap2-dev \
+  libsasl2-dev \
+  libssl-dev 
 
 COPY netbox/requirements.txt /opt/netbox/requirements.txt
 COPY local_requirements.txt /opt/netbox/local_requirements.txt
@@ -18,7 +22,7 @@ RUN pip install -r /opt/netbox/requirements.txt
 RUN pip install -r /opt/netbox/local_requirements.txt
 
 COPY netbox /opt/netbox
-COPY oidc_groups.py /opt/netbox/netbox/oidc_groups.py
+COPY csh_oidc_handler.py /opt/netbox/netbox/csh_oidc_handler.py
 
 COPY validators.py /opt/netbox/netbox/netbox/validators.py
 COPY configuration.env.py /opt/netbox/netbox/netbox/configuration.py
@@ -34,7 +38,8 @@ RUN NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" zensi
   NETBOX_SECRET_KEY="6l0~ZBT9yFIQoZxak9H=N_f6~@Yhbu~YS4s6r8-R2%GwXZVV)0" \
   python3 netbox/manage.py collectstatic --no-input
 
-RUN chown -R 1069:0 /opt/netbox
+RUN chown -R 1069:0 /opt/netbox && \
+    chmod -R g=u /opt/netbox
 
 USER 1069
 

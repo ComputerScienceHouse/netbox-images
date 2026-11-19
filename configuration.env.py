@@ -96,7 +96,12 @@ BANNER_TOP = ''
 BANNER_BOTTOM = ''
 
 # Text to include on the login page above the login form. HTML is allowed.
-BANNER_LOGIN = '<script>window.location.replace("/oauth/login/oidc/" + window.location.search);</script>'
+BANNER_LOGIN = '''<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.querySelector("form.sso-login-form");
+  if (form) { form.submit(); }
+});
+</script>'''
 
 # Base URL path if accessing NetBox within a directory. For example, if installed at https://example.com/netbox/, set:
 # BASE_PATH = 'netbox/'
@@ -310,7 +315,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_user',
     'netbox.authentication.user_default_groups_handler',
     'social_core.pipeline.social_auth.load_extra_data',
-    'oidc_groups.oidc_groups_handler',
+    'csh_oidc_handler.csh_oidc_handler',
     'social_core.pipeline.user.user_details',
 )
 
