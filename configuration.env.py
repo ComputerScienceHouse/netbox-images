@@ -38,8 +38,7 @@ DATABASE = {
 REDIS = {
   'tasks': {
     'HOST': os.environ.get("REDIS_SERVICE_HOST") or 'localhost',
-    'PORT': int(os.environ.get("REDIS_SERVICE_PORT")) if \
-      os.environ.get("REDIS_SERVICE_PORT") else 6379,
+    'PORT': int(os.environ.get("REDIS_SERVICE_PORT", '6379')),
     # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
     # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
     # 'SENTINEL_SERVICE': 'netbox',

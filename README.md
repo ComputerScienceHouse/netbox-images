@@ -1,6 +1,16 @@
 # CSH Netbox
 OKD Containers for CSH's Netbox instance, now with CSH SSO!
 
+## Running locally (for working on scripts?)
+
+Copy `.env.example` to `.env` and fill in the values
+
+If you would like to operate with the real data, copy `.env-remote-netbox.exmaple` to `.env-remote-netbox`.
+Then start the postgres database `podman compose up postgres`, and exec the dump script `podman exec postgres sh -c /sync-local-db.sh`
+
+Run the compose file
+`podman compose up --build`
+
 ## Upgrading
 
 First, pause rollouts to all netbox deployments in OKD:
