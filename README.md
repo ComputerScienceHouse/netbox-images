@@ -11,6 +11,11 @@ Then start the postgres database `podman compose up postgres`, and exec the dump
 Run the compose file
 `podman compose up --build`
 
+### Scripts
+Scripts in the `./scripts` directory get built into the `/opt/netbox/custom-scripts` folder as well as `/opt/netbox/netbox/scripts` folder. 
+The `custom-scripts` folder is used as a local datasource within netbox, and then the `/opt/netbox/netboxo/scripts` is where it all gets put, this is to ensure consistency across workers.
+See [https://netboxlabs.com/docs/netbox/customization/custom-scripts/](https://netboxlabs.com/docs/netbox/customization/custom-scripts/) for info on writing custom scripts
+
 ## Upgrading
 
 First, pause rollouts to all netbox deployments in OKD:
